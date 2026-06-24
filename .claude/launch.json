@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Crown Consulting Corp",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", ".", "-p", "3333", "--no-clipboard"],
+      "port": 3333
+    }
+  ]
+}
