@@ -1517,7 +1517,7 @@
             <div class="form-title">Request a Free Consultation</div>
             <div class="form-subtitle">We'll respond within one business day.</div>
 
-            <form id="contact-form" novalidate>
+            <form id="contact-form" name="consultation" data-netlify="true" novalidate>
               <div class="form-row">
                 <div class="form-group">
                   <label for="fname">First Name *</label>
@@ -1729,15 +1729,27 @@
 
       if (!valid) return;
 
-      // Simulate submission (replace with real endpoint)
       const submitBtn = form.querySelector('.form-submit');
       submitBtn.textContent = 'Sending…';
       submitBtn.disabled = true;
 
-      setTimeout(() => {
-        form.style.display = 'none';
-        formSuccess.style.display = 'block';
-      }, 900);
+      const data = new URLSearchParams(new FormData(form));
+      data.set('form-name', 'consultation');
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: data.toString(),
+      })
+        .then(() => {
+          form.style.display = 'none';
+          formSuccess.style.display = 'block';
+        })
+        .catch(() => {
+          submitBtn.textContent = 'Request Free Consultation →';
+          submitBtn.disabled = false;
+          alert('Something went wrong. Please call us at 516-483-2100 or email estee@crownconsultingcorp.com.');
+        });
     });
 
     // ── Smooth scroll for anchor links ─────────────────────────
